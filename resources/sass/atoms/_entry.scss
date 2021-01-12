@@ -1,0 +1,28 @@
+.entry-media {
+  display: block;
+  border: none;
+  margin: 2px;
+  background-color: $white;
+  padding: 0 !important;
+
+  .inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: solid 2px transparent;
+    padding: 2px !important;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    max-height: 100%;
+  }
+
+  &.selected {
+    .inner {
+      border-color: $primary;
+    }
+  }
+}

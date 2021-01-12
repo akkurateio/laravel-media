@@ -1,0 +1,12 @@
+export { default as Add32 } from '@carbon/icons/es/add/32';
+export { default as CheckmarkOutline24 } from '@carbon/icons/es/checkmark--outline/24';
+export { default as Close24 } from '@carbon/icons/es/close/24';
+export { default as Code24 } from '@carbon/icons-vue/es/code/24';
+export { default as Download24 } from '@carbon/icons/es/download/24';
+export { default as Image24 } from '@carbon/icons/es/image/24';
+export { default as Information24 } from '@carbon/icons/es/information/24';
+export { default as List24 } from '@carbon/icons-vue/es/list/24';
+export { default as MisuseOutline24 } from '@carbon/icons/es/misuse--outline/2^4';
+export { default as OverflowMenuHorizontal24 } from '@carbon/icons/es/overflow-menu--horizontal/24';
+export { default as Search24 } from '@carbon/icons/es/search/24';
+export { default as TrashCan24 } from '@carbon/icons-vue/es/trash-can/24';

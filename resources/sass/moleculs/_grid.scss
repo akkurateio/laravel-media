@@ -1,0 +1,4 @@
+.media-grid {
+  @include display-grid();
+  @include grid-template-columns(repeat(5, 20%));
+}
