@@ -1,11 +1,23 @@
 {
-    "name": "akkurate/laravel-media",
+    "name": "akkurateio/laravel-media",
     "description": "Media package for Laravel applications",
     "type": "library",
+    "license": "AGPL-3.0-only",
+    "authors": [
+        {
+            "name": "Akkurate",
+            "email": "hello@subvitamine.com",
+            "homepage": "https://www.akkurate.io",
+            "role": "Company"
+        }
+    ],
+    "support": {
+        "docs": "https://github.com/akkurateio/documentation"
+    },
     "require": {
-        "akkurate/laravel-core": "^2.0",
-        "akkurate/laravel-back-components": "^2.0",
-        "akkurate/laravel-search": "^2.0",
+        "akkurateio/laravel-core": "^0.1",
+        "akkurateio/laravel-back-components": "^0.1",
+        "akkurateio/laravel-search": "^0.1",
         "intervention/image": "^2.5",
         "laravel/legacy-factories": "^1.1",
         "spatie/laravel-medialibrary": "^8.3.0",
@@ -40,47 +52,5 @@
     },
     "scripts": {
         "test": "vendor/bin/phpunit"
-    },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "git@bitbucket.org:subvitaminetm/laravel-access.git"
-        },
-        {
-            "type": "vcs",
-            "url": "git@bitbucket.org:subvitaminetm/laravel-admin.git"
-        },
-        {
-            "type": "vcs",
-            "url": "git@bitbucket.org:subvitaminetm/laravel-auth.git"
-        },
-        {
-            "type": "vcs",
-            "url": "git@bitbucket.org:subvitaminetm/laravel-back-components.git"
-        },
-        {
-            "type": "vcs",
-            "url": "git@bitbucket.org:subvitaminetm/laravel-business.git"
-        },
-        {
-            "type": "vcs",
-            "url": "git@bitbucket.org:subvitaminetm/laravel-carbon-icons.git"
-        },
-        {
-            "type": "vcs",
-            "url": "git@bitbucket.org:subvitaminetm/laravel-contact.git"
-        },
-        {
-            "type": "vcs",
-            "url": "git@bitbucket.org:subvitaminetm/laravel-core.git"
-        },
-        {
-            "type": "vcs",
-            "url": "git@bitbucket.org:subvitaminetm/laravel-me.git"
-        },
-        {
-            "type": "vcs",
-            "url": "git@bitbucket.org:subvitaminetm/laravel-search.git"
-        }
-    ]
+    }
 }
