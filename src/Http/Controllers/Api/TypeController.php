@@ -2,13 +2,13 @@
 
 namespace Akkurate\LaravelMedia\Http\Controllers\Api;
 
-use Akkurate\LaravelCore\Http\Controllers\Controller;
 use Akkurate\LaravelMedia\Http\Resources\Type as TypeResource;
 use Akkurate\LaravelMedia\Http\Resources\TypeCollection;
 use Akkurate\LaravelMedia\Models\Type;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class TypeController extends Controller

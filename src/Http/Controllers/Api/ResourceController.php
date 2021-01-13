@@ -2,13 +2,13 @@
 
 namespace Akkurate\LaravelMedia\Http\Controllers\Api;
 
-use Akkurate\LaravelCore\Http\Controllers\Controller;
 use Akkurate\LaravelMedia\Filters\FilterWithAllTags;
 use Akkurate\LaravelMedia\Http\Resources\Resource as ResourceResource;
 use Akkurate\LaravelMedia\Http\Resources\ResourcesCollection;
 use Akkurate\LaravelMedia\Models\Resource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 

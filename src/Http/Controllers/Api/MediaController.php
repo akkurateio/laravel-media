@@ -2,7 +2,6 @@
 
 namespace Akkurate\LaravelMedia\Http\Controllers\Api;
 
-use Akkurate\LaravelCore\Http\Controllers\Controller;
 use Akkurate\LaravelMedia\Http\Resources\Resource as ResourceResource;
 use Akkurate\LaravelMedia\Http\Resources\Media as MediaResource;
 use Akkurate\LaravelMedia\Http\Resources\MediaCollection;
@@ -12,6 +11,7 @@ use Akkurate\LaravelMedia\Models\Type;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Intervention\Image\Facades\Image;
 use Spatie\QueryBuilder\QueryBuilder;
 

@@ -3,7 +3,7 @@
 namespace Akkurate\LaravelMedia\Http\Controllers\Back;
 
 use Illuminate\View\View;
-use Akkurate\LaravelCore\Http\Controllers\Controller;
+use Illuminate\Routing\Controller;
 
 class MediaController extends Controller
 {
