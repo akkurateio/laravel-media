@@ -17,9 +17,9 @@
         "docs": "https://github.com/akkurateio/documentation"
     },
     "require": {
-        "akkurateio/laravel-core": "^0.1",
-        "akkurateio/laravel-back-components": "^0.1",
-        "akkurateio/laravel-search": "^0.1",
+        "akkurateio/laravel-core": "0.x-dev",
+        "akkurateio/laravel-back-components": "0.x-dev",
+        "akkurateio/laravel-search": "0.x-dev",
         "intervention/image": "^2.5",
         "laravel/legacy-factories": "^1.1",
         "spatie/laravel-medialibrary": "^8.3.0",
