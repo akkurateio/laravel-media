@@ -5,7 +5,6 @@ namespace Akkurate\LaravelMedia\Tests;
 use Akkurate\LaravelMedia\Models\Type;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Laravel\Passport\Passport;
 
 class TypeApiTest extends TestCase
 {
@@ -15,7 +14,6 @@ class TypeApiTest extends TestCase
     /** @test **/
     public function it_should_return_all_types()
     {
-        Passport::actingAs($this->user);
         Type::factory()->count(2)->make();
 
         $response = $this->get(route('api.media.types.index', [
@@ -27,7 +25,6 @@ class TypeApiTest extends TestCase
     /** @test **/
     public function it_should_read_a_type()
     {
-        Passport::actingAs($this->user);
         $response = $this->get(route('api.media.types.show', [
             'uuid' => $this->user->account->slug,
             'type' => Type::factory()->create(),
@@ -38,7 +35,6 @@ class TypeApiTest extends TestCase
     /** @test **/
     public function it_should_store_a_type()
     {
-        Passport::actingAs($this->user);
         $response = $this->post(route('api.media.types.store', [
             'uuid' => $this->user->account->slug,
             'code' => 'DOC',
@@ -52,7 +48,6 @@ class TypeApiTest extends TestCase
     /** @test **/
     public function it_should_update_a_type()
     {
-        Passport::actingAs($this->user);
         $response = $this->put(route('api.media.types.update', [
             'uuid' => $this->user->account->slug,
             'type' => Type::factory()->create(),
@@ -67,7 +62,6 @@ class TypeApiTest extends TestCase
     /** @test **/
     public function it_should_delete_a_type()
     {
-        Passport::actingAs($this->user);
         $response = $this->delete(route('api.media.types.destroy', [
             'uuid' => $this->user->account->slug,
             'type' => Type::factory()->create(),

@@ -2,11 +2,9 @@
 
 namespace Akkurate\LaravelMedia\Tests;
 
-use Akkurate\LaravelCore\Providers\LaravelAccessServiceProvider;
-use Akkurate\LaravelCore\Models\User;
-use Akkurate\LaravelCore\Providers\LaravelAdminServiceProvider;
-use Akkurate\LaravelCore\Models\Account;
-use Akkurate\LaravelCore\Models\Language;
+use Akkurate\LaravelMedia\Tests\Fixtures\Language;
+use Akkurate\LaravelMedia\Tests\Fixtures\User;
+use Akkurate\LaravelMedia\Tests\Fixtures\Account;
 use Akkurate\LaravelBackComponents\LaravelBackComponentsServiceProvider;
 use Akkurate\LaravelMedia\LaravelMediaServiceProvider;
 use Akkurate\LaravelSearch\LaravelSearchServiceProvider;
@@ -33,61 +31,93 @@ class TestCase extends OrchestraTestCase
         $this->user = User::first();
         auth()->login($this->user);
 
-        $this->user->preference()->create([
-            'preferenceable_type' => 'Akkurate\LaravelCore\Models\User',
-            'preferenceable_id' => $this->user->id,
-            'target' => 'both',
-            'pagination' => 30,
-            'language_id' => Language::where('locale', 'fr')->first()->id
-        ]);
     }
 
     protected function getPackageProviders($app)
     {
         return [
             LaravelMediaServiceProvider::class,
-            LaravelAccessServiceProvider::class,
             PermissionServiceProvider::class,
             JsonApiPaginateServiceProvider::class,
             LaravelBackComponentsServiceProvider::class,
             LaravelSearchServiceProvider::class,
             FormBuilderServiceProvider::class,
-            LaravelAdminServiceProvider::class,
             EloquentSluggableServiceProvider::class,
         ];
     }
 
     protected function setUpDatabase()
     {
-        Schema::create('users', function (Blueprint $table) {
+
+        Schema::create('languages', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
-            $table->string('email')->nullable();
-            $table->string('password')->nullable();
+            $table->uuid('uuid')->default('');
+            $table->string('label')->nullable();
+            $table->string('locale');
+            $table->string('locale_php');
+            $table->integer('priority')->nullable()->default(0);
+            $table->boolean('is_active')->default(1);
+            $table->boolean('is_default')->default(0);
             $table->timestamps();
         });
 
-        $this->loadMigrationsFrom(__DIR__ . '/../vendor/akkurateio/laravel-core/database/laravel-access/migrations');
-        $this->seed(\Akkurate\LaravelCore\Database\Seeders\Access\DatabaseSeeder::class);
+        Schema::create('preferences', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('preferenceable_id');
+            $table->string('preferenceable_type');
+            $table->enum('target', ['both', 'b2c', 'b2b'])->nullable()->default('both');
+            $table->integer('pagination')->nullable()->default(30);
+            $table->foreignId('language_id')->nullable()->constrained('languages');
+            $table->timestamps();
+        });
 
-        $this->loadMigrationsFrom(__DIR__ . '/../vendor/akkurateio/laravel-core/database/laravel-admin/migrations');
-        $this->seed(\Akkurate\LaravelCore\Database\Seeders\Admin\LanguagesTableSeeder::class);
+        Schema::create('accounts', function (Blueprint $table) {
+            $table->id();
+            $table->uuid('uuid')->default('');
+            $table->string('name');
+            $table->string('slug');
+            $table->string('email')->nullable()->unique();
+            $table->timestamps();
+        });
+
+        Schema::create('users', function (Blueprint $table) {
+            $table->id();
+            $table->uuid('uuid')->default('');
+            $table->string('name')->nullable();
+            $table->string('email')->nullable();
+            $table->string('password')->nullable();
+            $table->foreignId('account_id')->nullable()->constrained('accounts')->onDelete('cascade');
+            $table->timestamps();
+        });
+
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
     }
 
     protected function createUser()
     {
+
+        Language::create([
+            'label' => 'français',
+            'locale' => 'fr',
+            'locale_php' => 'fr_FR',
+            'is_default' => 1
+        ]);
+
         $account = Account::create([
             'name' => 'Account',
+            'slug' => 'account',
             'email' => 'account@email.com',
         ]);
 
-        User::forceCreate([
-            'firstname' => 'User',
-            'lastname' => 'Lastname',
+        $user = User::forceCreate([
+            'name' => 'User',
             'email' => 'user@email.com',
             'password' => 'test',
             'account_id' => $account->id,
+        ]);
+
+        $user->preference()->create([
+            'language_id' => 1
         ]);
     }
 }

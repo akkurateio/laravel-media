@@ -17,13 +17,17 @@
         "docs": "https://github.com/akkurateio/documentation"
     },
     "require": {
-        "akkurateio/laravel-core": "0.x-dev",
+        "php": "^7.3",
+        "ext-json": "*",
         "akkurateio/laravel-back-components": "0.x-dev",
         "akkurateio/laravel-search": "0.x-dev",
+        "cviebrock/eloquent-sluggable": "^8.0",
         "intervention/image": "^2.5",
-        "laravel/legacy-factories": "^1.1",
+        "kris/laravel-form-builder": "^1.40",
+        "spatie/laravel-json-api-paginate": "^1.7",
         "spatie/laravel-medialibrary": "^8.3.0",
         "spatie/laravel-permission": "^3.0",
+        "spatie/laravel-query-builder": "^2.8",
         "spatie/laravel-tags": "^2.6.2",
         "webpatser/laravel-uuid": "^3.0"
     },

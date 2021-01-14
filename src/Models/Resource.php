@@ -2,8 +2,7 @@
 
 namespace Akkurate\LaravelMedia\Models;
 
-use Akkurate\LaravelCore\Models\User;
-use Akkurate\LaravelCore\Traits\HasUuid;
+use App\Models\User;
 use Akkurate\LaravelMedia\Database\Factories\ResourceFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,12 +17,11 @@ use Webpatser\Uuid\Uuid;
 
 class Resource extends Model implements HasMedia
 {
-    use Sluggable, HasFactory, HasUuid, InteractsWithMedia, softDeletes, HasTags;
+    use Sluggable, HasFactory, InteractsWithMedia, softDeletes, HasTags;
 
     protected $table = 'media_resources';
 
     protected $fillable = ['slug', 'name', 'alt', 'legend', 'thumb', 'md5', 'type_id', 'media_id', 'user_id', 'account_id'];
-
 
     /**
      * Create a new factory instance for the model.
@@ -44,11 +42,8 @@ class Resource extends Model implements HasMedia
             $model->$uuidFieldName = (string) Uuid::generate(4);
         });
 
-        static::addGlobalScope('fromCurrentAccount', function (Builder $builder) {
-            if (auth()->user()) {
-                $builder
-                    ->where('account_id', currentAccount()->id);
-            }
+        static::addGlobalScope('fromUserAccount', function (Builder $builder) {
+            $builder->where('account_id', auth()->user()->account->id);
         });
 
     }

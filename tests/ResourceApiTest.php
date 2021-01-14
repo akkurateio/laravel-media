@@ -14,7 +14,6 @@ class ResourceApiTest extends TestCase
     /** @test **/
     public function it_should_return_all_resources()
     {
-        Resource::factory()->count(2)->create();
         $response = $this->get(route('api.media.resources.index', [
             'uuid' => $this->user->account->slug
         ]));
