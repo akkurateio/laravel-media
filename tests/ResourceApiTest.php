@@ -2,7 +2,6 @@
 
 namespace Akkurate\LaravelMedia\Tests;
 
-use Akkurate\LaravelMedia\Models\Resource;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 

@@ -2,7 +2,6 @@
 
 namespace Akkurate\LaravelMedia\Tests;
 
-use Akkurate\LaravelMedia\Tests\Fixtures\Language;
 use Akkurate\LaravelMedia\Tests\Fixtures\User;
 use Akkurate\LaravelMedia\Tests\Fixtures\Account;
 use Akkurate\LaravelBackComponents\LaravelBackComponentsServiceProvider;
@@ -49,18 +48,6 @@ class TestCase extends OrchestraTestCase
     protected function setUpDatabase()
     {
 
-        Schema::create('languages', function (Blueprint $table) {
-            $table->id();
-            $table->uuid('uuid')->default('');
-            $table->string('label')->nullable();
-            $table->string('locale');
-            $table->string('locale_php');
-            $table->integer('priority')->nullable()->default(0);
-            $table->boolean('is_active')->default(1);
-            $table->boolean('is_default')->default(0);
-            $table->timestamps();
-        });
-
         Schema::create('preferences', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('preferenceable_id');
@@ -96,13 +83,6 @@ class TestCase extends OrchestraTestCase
     protected function createUser()
     {
 
-        Language::create([
-            'label' => 'français',
-            'locale' => 'fr',
-            'locale_php' => 'fr_FR',
-            'is_default' => 1
-        ]);
-
         $account = Account::create([
             'name' => 'Account',
             'slug' => 'account',
@@ -116,8 +96,6 @@ class TestCase extends OrchestraTestCase
             'account_id' => $account->id,
         ]);
 
-        $user->preference()->create([
-            'language_id' => 1
-        ]);
+        $user->preference()->create();
     }
 }
