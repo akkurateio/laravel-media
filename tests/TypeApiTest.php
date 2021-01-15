@@ -68,5 +68,4 @@ class TypeApiTest extends TestCase
         ]));
         $response->assertStatus(204);
     }
-
 }

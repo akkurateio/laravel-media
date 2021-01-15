@@ -2,9 +2,9 @@
 
 namespace Akkurate\LaravelMedia\Http\Controllers\Api;
 
-use Akkurate\LaravelMedia\Http\Resources\Resource as ResourceResource;
 use Akkurate\LaravelMedia\Http\Resources\Media as MediaResource;
 use Akkurate\LaravelMedia\Http\Resources\MediaCollection;
+use Akkurate\LaravelMedia\Http\Resources\Resource as ResourceResource;
 use Akkurate\LaravelMedia\Models\Media;
 use Akkurate\LaravelMedia\Models\Resource;
 use Akkurate\LaravelMedia\Models\Type;
@@ -25,12 +25,13 @@ class MediaController extends Controller
      */
     public function index()
     {
-        return new MediaCollection(QueryBuilder::for(Media::class)
+        return new MediaCollection(
+            QueryBuilder::for(Media::class)
            ->allowedFilters([])
            ->allowedSorts([])
            ->allowedIncludes(['resource'])
            ->jsonPaginate()
-       );
+        );
     }
 
     /**
@@ -42,7 +43,6 @@ class MediaController extends Controller
      */
     public function store($uuid, Request $request)
     {
-
         $request->validate([
             'image' => 'mimes:jpg,jpeg,png,gif,pdf,xls,xlsx'
         ]);
@@ -122,7 +122,6 @@ class MediaController extends Controller
 
     public function update($uuid, Media $media, Request $request)
     {
-
         $resource = Resource::where('media_id', $media->id)->first();
 
         $resource->update([
@@ -145,7 +144,7 @@ class MediaController extends Controller
     public function destroy($uuid, Media $media)
     {
         $media->delete();
+
         return response()->json(null, 204);
     }
-
 }

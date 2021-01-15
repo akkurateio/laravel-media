@@ -2,8 +2,8 @@
 
 namespace Akkurate\LaravelMedia\Filters;
 
-use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
+use Spatie\QueryBuilder\Filters\Filter;
 
 class FilterWithAllTags implements Filter
 {

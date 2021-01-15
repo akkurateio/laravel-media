@@ -7,7 +7,6 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media as BaseMedia;
 
 class Media extends BaseMedia
 {
-
     use HasFactory;
 
     public function resource()

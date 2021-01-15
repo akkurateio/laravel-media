@@ -2,17 +2,17 @@
 
 namespace Akkurate\LaravelMedia\Models;
 
-use App\Models\User;
 use Akkurate\LaravelMedia\Database\Factories\ResourceFactory;
+use App\Models\User;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Spatie\Tags\HasTags;
-use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
-use Cviebrock\EloquentSluggable\Sluggable;
-use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\Tags\HasTags;
 use Webpatser\Uuid\Uuid;
 
 class Resource extends Model implements HasMedia
@@ -45,7 +45,6 @@ class Resource extends Model implements HasMedia
         static::addGlobalScope('fromUserAccount', function (Builder $builder) {
             $builder->where('account_id', auth()->user()->account->id);
         });
-
     }
 
     public function resourceable()
@@ -86,6 +85,7 @@ class Resource extends Model implements HasMedia
     public function customizeSlugEngine(\Cocur\Slugify\Slugify $engine, $attribute)
     {
         $engine->addRule('@', '-at-');
+
         return $engine;
     }
 
@@ -97,7 +97,6 @@ class Resource extends Model implements HasMedia
 
     public function registerMediaConversions(Media $media = null): void
     {
-
         $this
             ->addMediaConversion('originalRatio')
             ->width(1920)
@@ -151,7 +150,7 @@ class Resource extends Model implements HasMedia
         $ids = array_map(function ($item) {
             return $item['id'];
         }, Resource::select('id')->withAnyTags([$q])->get()->toArray());
+
         return $query->where('name', 'LIKE', '%' . $q . '%')->whereIn('id', $ids, 'or');
     }
-
 }

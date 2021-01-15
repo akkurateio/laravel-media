@@ -4,12 +4,11 @@ namespace Akkurate\LaravelMedia\Models;
 
 use Akkurate\LaravelMedia\Database\Factories\TypeFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Spatie\Searchable\Searchable;
-use Spatie\Searchable\SearchResult;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Searchable\Searchable;
+use Spatie\Searchable\SearchResult;
 use Webpatser\Uuid\Uuid;
-
 
 class Type extends Model implements Searchable
 {
@@ -40,18 +39,19 @@ class Type extends Model implements Searchable
         return TypeFactory::new();
     }
 
-    public function resources() {
+    public function resources()
+    {
         return $this->hasMany('Akkurate\LaravelMedia\Models\Resource');
     }
 
     public function getSearchResult(): SearchResult
-    	{
-    		$url = route('brain.media.types.show', ['uuid' => auth()->user()->account->slug, $this->id]);
+    {
+        $url = route('brain.media.types.show', ['uuid' => auth()->user()->account->slug, $this->id]);
 
-    		return new SearchResult(
-    			$this,
-    			$this->name,
-    			$url
-    		);
-    	}
+        return new SearchResult(
+            $this,
+            $this->name,
+            $url
+        );
+    }
 }

@@ -2,8 +2,8 @@
 
 namespace Akkurate\LaravelMedia\Http\Controllers\Back;
 
-use Illuminate\View\View;
 use Illuminate\Routing\Controller;
+use Illuminate\View\View;
 
 class MediaController extends Controller
 {
@@ -18,5 +18,4 @@ class MediaController extends Controller
     {
         return view('media::back.medias.index');
     }
-
 }

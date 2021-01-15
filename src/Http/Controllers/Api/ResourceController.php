@@ -22,7 +22,8 @@ class ResourceController extends Controller
      */
     public function index()
     {
-        return new ResourcesCollection(QueryBuilder::for(Resource::class)
+        return new ResourcesCollection(
+            QueryBuilder::for(Resource::class)
             ->allowedFilters([
                 AllowedFilter::custom('tags', new FilterWithAllTags),
                 AllowedFilter::scope('search'),
@@ -56,6 +57,7 @@ class ResourceController extends Controller
     {
         $model = $request->model_type::find($request->model_id);
         $model->resources()->attach($resource);
+
         return response()->json([], 200);
     }
 
@@ -69,6 +71,7 @@ class ResourceController extends Controller
     {
         $model = $request->model_type::find($request->model_id);
         $model->resources()->detach($resource);
+
         return response()->json([], 200);
     }
 
@@ -81,6 +84,7 @@ class ResourceController extends Controller
     public function attachTag($uuid, Resource $resource, Request $request)
     {
         $resource->attachTag($request->tag);
+
         return response()->json([], 200);
     }
 
@@ -93,7 +97,7 @@ class ResourceController extends Controller
     public function detachTag($uuid, Resource $resource, Request $request)
     {
         $resource->detachTag($request->tag);
+
         return response()->json([], 200);
     }
-
 }

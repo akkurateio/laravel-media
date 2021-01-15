@@ -10,7 +10,7 @@ class MediaControllerTest extends TestCase
     use WithFaker;
     use WithoutMiddleware;
 
-   /** @test **/
+    /** @test **/
     public function it_should_return_the_medias_view()
     {
         $response = $this->get(route('brain.media.medias.index', [

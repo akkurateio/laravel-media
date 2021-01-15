@@ -21,12 +21,13 @@ class TypeController extends Controller
      */
     public function index()
     {
-        return new TypeCollection(QueryBuilder::for(Type::class)
+        return new TypeCollection(
+            QueryBuilder::for(Type::class)
            ->allowedFilters(['code','name','description','priority','is_active'])
            ->allowedSorts(['code','name','description','priority','is_active'])
            ->allowedIncludes(['items'])
            ->jsonPaginate()
-       );
+        );
     }
 
     /**
@@ -39,6 +40,7 @@ class TypeController extends Controller
     public function store($uuid, Request $request)
     {
         $type = Type::create($request->all());
+
         return response()->json($type, 201);
     }
 
@@ -65,6 +67,7 @@ class TypeController extends Controller
     public function update($uuid, Request $request, Type $type)
     {
         $type->update($request->all());
+
         return new TypeResource($type);
     }
 
@@ -79,7 +82,7 @@ class TypeController extends Controller
     public function destroy($uuid, Type $type)
     {
         $type->delete();
+
         return response()->json(null, 204);
     }
-
 }

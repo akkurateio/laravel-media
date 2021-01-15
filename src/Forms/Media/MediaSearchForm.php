@@ -10,6 +10,5 @@ class MediaSearchForm extends Form
     {
         $this
             ->add('q', 'search', ['attr' => ['class' => 'form-control'], 'value' => request('q'), 'label' => __('Rechercher')]);
-
     }
 }

@@ -2,22 +2,21 @@
 
 namespace Akkurate\LaravelMedia\Tests;
 
-use Akkurate\LaravelMedia\Tests\Fixtures\User;
-use Akkurate\LaravelMedia\Tests\Fixtures\Account;
 use Akkurate\LaravelBackComponents\LaravelBackComponentsServiceProvider;
 use Akkurate\LaravelMedia\LaravelMediaServiceProvider;
+use Akkurate\LaravelMedia\Tests\Fixtures\Account;
+use Akkurate\LaravelMedia\Tests\Fixtures\User;
 use Akkurate\LaravelSearch\LaravelSearchServiceProvider;
+use Cviebrock\EloquentSluggable\ServiceProvider as EloquentSluggableServiceProvider;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Kris\LaravelFormBuilder\FormBuilderServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Spatie\JsonApiPaginate\JsonApiPaginateServiceProvider;
 use Spatie\Permission\PermissionServiceProvider;
-use Cviebrock\EloquentSluggable\ServiceProvider as EloquentSluggableServiceProvider;
 
 class TestCase extends OrchestraTestCase
 {
-
     protected $user;
 
     protected function setUp(): void
@@ -29,7 +28,6 @@ class TestCase extends OrchestraTestCase
 
         $this->user = User::first();
         auth()->login($this->user);
-
     }
 
     protected function getPackageProviders($app)
@@ -47,7 +45,6 @@ class TestCase extends OrchestraTestCase
 
     protected function setUpDatabase()
     {
-
         Schema::create('preferences', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('preferenceable_id');
@@ -82,7 +79,6 @@ class TestCase extends OrchestraTestCase
 
     protected function createUser()
     {
-
         $account = Account::create([
             'name' => 'Account',
             'slug' => 'account',
