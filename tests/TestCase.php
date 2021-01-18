@@ -2,8 +2,6 @@
 
 namespace Akkurate\LaravelMedia\Tests;
 
-use Akkurate\LaravelAccountSubmodule\LaravelAccountSubmoduleServiceProvider;
-use Akkurate\LaravelAccountSubmodule\Models\Account;
 use Akkurate\LaravelAccountSubmodule\Models\User;
 use Akkurate\LaravelBackComponents\LaravelBackComponentsServiceProvider;
 use Akkurate\LaravelMedia\LaravelMediaServiceProvider;
@@ -22,9 +20,7 @@ class TestCase extends OrchestraTestCase
     {
         parent::setUp();
         $this->setUpDatabase();
-
         $this->createUser();
-
         $this->user = User::first();
         auth()->login($this->user);
     }
@@ -32,7 +28,6 @@ class TestCase extends OrchestraTestCase
     protected function getPackageProviders($app)
     {
         return [
-            LaravelAccountSubmoduleServiceProvider::class,
             LaravelMediaServiceProvider::class,
             PermissionServiceProvider::class,
             JsonApiPaginateServiceProvider::class,
@@ -51,20 +46,7 @@ class TestCase extends OrchestraTestCase
 
     protected function createUser()
     {
-        $account = Account::create([
-            'name' => 'Account',
-            'slug' => 'account',
-            'email' => 'account@email.com',
-        ]);
-
-        $user = User::forceCreate([
-            'firstname' => 'User',
-            'lastname' => 'Test',
-            'email' => 'user@email.com',
-            'password' => 'password',
-            'account_id' => $account->id,
-        ]);
-
+        $user = User::factory()->create();
         $user->preference()->create();
     }
 }
