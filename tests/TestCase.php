@@ -2,14 +2,13 @@
 
 namespace Akkurate\LaravelMedia\Tests;
 
+use Akkurate\LaravelAccountSubmodule\LaravelAccountSubmoduleServiceProvider;
+use Akkurate\LaravelAccountSubmodule\Models\Account;
+use Akkurate\LaravelAccountSubmodule\Models\User;
 use Akkurate\LaravelBackComponents\LaravelBackComponentsServiceProvider;
 use Akkurate\LaravelMedia\LaravelMediaServiceProvider;
-use Akkurate\LaravelMedia\Tests\Fixtures\Account;
-use Akkurate\LaravelMedia\Tests\Fixtures\User;
 use Akkurate\LaravelSearch\LaravelSearchServiceProvider;
 use Cviebrock\EloquentSluggable\ServiceProvider as EloquentSluggableServiceProvider;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 use Kris\LaravelFormBuilder\FormBuilderServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Spatie\JsonApiPaginate\JsonApiPaginateServiceProvider;
@@ -33,6 +32,7 @@ class TestCase extends OrchestraTestCase
     protected function getPackageProviders($app)
     {
         return [
+            LaravelAccountSubmoduleServiceProvider::class,
             LaravelMediaServiceProvider::class,
             PermissionServiceProvider::class,
             JsonApiPaginateServiceProvider::class,
@@ -45,35 +45,7 @@ class TestCase extends OrchestraTestCase
 
     protected function setUpDatabase()
     {
-        Schema::create('preferences', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('preferenceable_id');
-            $table->string('preferenceable_type');
-            $table->enum('target', ['both', 'b2c', 'b2b'])->nullable()->default('both');
-            $table->integer('pagination')->nullable()->default(30);
-            $table->foreignId('language_id')->nullable()->constrained('languages');
-            $table->timestamps();
-        });
-
-        Schema::create('accounts', function (Blueprint $table) {
-            $table->id();
-            $table->uuid('uuid')->default('');
-            $table->string('name');
-            $table->string('slug');
-            $table->string('email')->nullable()->unique();
-            $table->timestamps();
-        });
-
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->uuid('uuid')->default('');
-            $table->string('name')->nullable();
-            $table->string('email')->nullable();
-            $table->string('password')->nullable();
-            $table->foreignId('account_id')->nullable()->constrained('accounts')->onDelete('cascade');
-            $table->timestamps();
-        });
-
+        $this->loadMigrationsFrom(__DIR__ . '/../vendor/akkurateio/laravel-account-submodule/database/migrations');
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
     }
 
@@ -86,9 +58,10 @@ class TestCase extends OrchestraTestCase
         ]);
 
         $user = User::forceCreate([
-            'name' => 'User',
+            'firstname' => 'User',
+            'lastname' => 'Test',
             'email' => 'user@email.com',
-            'password' => 'test',
+            'password' => 'password',
             'account_id' => $account->id,
         ]);
 
