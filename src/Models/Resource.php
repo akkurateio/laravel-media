@@ -2,8 +2,8 @@
 
 namespace Akkurate\LaravelMedia\Models;
 
+use Akkurate\LaravelAccountSubmodule\Traits\HasUser;
 use Akkurate\LaravelMedia\Database\Factories\ResourceFactory;
-use App\Models\User;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,7 +17,7 @@ use Webpatser\Uuid\Uuid;
 
 class Resource extends Model implements HasMedia
 {
-    use Sluggable, HasFactory, InteractsWithMedia, softDeletes, HasTags;
+    use HasUser, Sluggable, HasFactory, InteractsWithMedia, softDeletes, HasTags;
 
     protected $table = 'media_resources';
 
@@ -52,16 +52,10 @@ class Resource extends Model implements HasMedia
         return $this->morphTo('resourceable');
     }
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
     public function type()
     {
         return $this->belongsTo(Type::class);
     }
-
 
     /**
      * Return the sluggable configuration array for this model.
