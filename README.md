@@ -1,6 +1,6 @@
 # Laravel Media
 
-Module de gestion de media pour l’écosystème akkurate.
+Module de gestion de media pour l’écosystème Akkurate.
 
 L’objet de ce package est d’étendre le package spatie/laravel-medialibrary, en permettant notamment d’importer des media sans forcément les rattacher immédiatement à un model, ou à l’inverse d’attacher le même media à plusieurs models (une image pour illustrer un article de blog qui pourrait servir dans un carousel ou être utlisée comme avatar pour un compte ou un utlisateur).
 
@@ -13,6 +13,14 @@ composer require akkurate/laravel-media
 Publier le fichier de configuration:
 ```bash
 php artisan vendor:publish --provider="Akkurate\LaravelMedia\LaravelMediaServiceProvider" --tag="config"
+```
+
+```bash
+php artisan migrate
+```
+
+```bash
+php artisan media:seed
 ```
 
 Pour la gestion des tags, vérifier que la locale est bien définie dans le .env
